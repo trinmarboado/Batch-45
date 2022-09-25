@@ -18,7 +18,11 @@
         <q-item-section avatar>
           <q-checkbox v-model="todo.done" @update:model-value="saveState" />
         </q-item-section>
-        <q-item-section>{{ i }} {{ todo.title }} {{ todo.done }}</q-item-section>
+        <q-item-section
+          :class="{
+            strikethrough: todo.done
+          }"
+        >{{ i }} {{ todo.title }}</q-item-section>
         <q-item-section side>
           <q-btn icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
         </q-item-section>
@@ -123,4 +127,9 @@ const removeTodo = (id) => {
     margin-bottom: 20px;
   }
 
+  /* strikethrough */
+  .strikethrough {
+    text-decoration: line-through;
+    color: grey
+  }
 </style>
