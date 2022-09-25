@@ -16,7 +16,7 @@
     <q-list bordered separator class="q-ma-md">
       <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
-          <q-checkbox v-model="todo.done" />
+          <q-checkbox v-model="todo.done" @update:model-value="saveState" />
         </q-item-section>
         <q-item-section>{{ i }} {{ todo.title }} {{ todo.done }}</q-item-section>
         <q-item-section side>
@@ -31,7 +31,7 @@
 
 import { reactive, ref } from 'vue'
 
-// create an array of todos
+// create an array of todoss
 
 const task = ref('')
 
@@ -55,6 +55,12 @@ const state = reactive({
   ]
 })
 
+// state.todos = JSON.parse(window.localStorage.getItem('todos')) || [...state.todos]
+
+console.log(JSON.parse(window.localStorage.getItem('todos')))
+
+state.todos = JSON.parse(window.localStorage.getItem('todos') || '[]')
+
 function add () {
   state.todos.unshift({
     id: Date.now(),
@@ -64,8 +70,13 @@ function add () {
 
   task.value = ''
 
+  // window.localStorage.setItem('todos', JSON.stringify([...state.todos]))
+  saveState()
+
   console.log(state.todos)
 }
+
+const saveState = () => window.localStorage.setItem('todos', JSON.stringify([...state.todos]))
 
 </script>
 
