@@ -6,27 +6,17 @@
         <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
       </q-avatar>
 
-      <q-toolbar-title>Batch 45</q-toolbar-title>
+      <q-toolbar-title>Batch 45 {{ task }}</q-toolbar-title>
 
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
-    <q-input class="q-ma-md" rounded outlined  modelValue="text" label="What needs to be done" />
+    <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done" />
     <q-list bordered separator class="q-ma-md">
-      <q-item clickable v-ripple >
+      <q-item clickable v-ripple v-for="(todo, i) in todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
-          <q-checkbox :modelValue="false" />
+          <q-checkbox v-model="todo.done" />
         </q-item-section>
-        <q-item-section>Active</q-item-section>
-        <q-item-section side>
-          <q-btn icon="close" round dense color="red" flat size="small" />
-        </q-item-section>
-      </q-item>
-
-      <q-item clickable v-ripple active-class="text-orange">
-        <q-item-section avatar>
-          <q-checkbox :modelValue="true" />
-        </q-item-section>
-        <q-item-section>Active, Active class</q-item-section>
+        <q-item-section>{{ i }} {{ todo.title }} {{ todo.done }}</q-item-section>
         <q-item-section side>
           <q-btn icon="close" round dense color="red" flat size="small" />
         </q-item-section>
@@ -34,6 +24,34 @@
     </q-list>
   </div>
 </template>
+
+<script setup>
+
+import { ref } from 'vue'
+
+// create an array of todos
+
+const task = ref('')
+
+const todos = ([
+  {
+    id: 1,
+    title: 'Learn React',
+    done: true
+  },
+  {
+    id: 2,
+    title: 'Learn Vue',
+    done: true
+  },
+  {
+    id: 3,
+    title: 'Learn Vue 2',
+    done: true
+  }
+])
+
+</script>
 
 <style>
   h3 {
