@@ -20,7 +20,7 @@
         </q-item-section>
         <q-item-section>{{ i }} {{ todo.title }} {{ todo.done }}</q-item-section>
         <q-item-section side>
-          <q-btn icon="close" round dense color="red" flat size="small" />
+          <q-btn icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -81,6 +81,18 @@ const saveState = () => window.localStorage.setItem('todos', JSON.stringify([...
 // function saveState () {
 //   window.localStorage.setItem('todos', JSON.stringify([...state.todos]))
 // }
+
+const removeTodo = (id) => {
+  for (let index = 0; index < state.todos.length; index++) {
+    const todo = state.todos[index]
+
+    if (todo.id === id) {
+      state.todos.splice(index, 1)
+      saveState()
+      return
+    }
+  }
+}
 
 </script>
 
