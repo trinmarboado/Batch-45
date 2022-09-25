@@ -78,6 +78,10 @@ function add () {
 
 const saveState = () => window.localStorage.setItem('todos', JSON.stringify([...state.todos]))
 
+// function saveState () {
+//   window.localStorage.setItem('todos', JSON.stringify([...state.todos]))
+// }
+
 </script>
 
 <style>
