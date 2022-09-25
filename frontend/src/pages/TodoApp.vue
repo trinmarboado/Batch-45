@@ -10,22 +10,26 @@
 
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
-    <q-input rounded outlined  modelValue="text" label="What needs to be done" />
-    <q-list bordered separator>
+    <q-input class="q-ma-md" rounded outlined  modelValue="text" label="What needs to be done" />
+    <q-list bordered separator class="q-ma-md">
       <q-item clickable v-ripple >
         <q-item-section avatar>
-          <q-icon name="signal_wifi_off" />
+          <q-checkbox :modelValue="false" />
         </q-item-section>
         <q-item-section>Active</q-item-section>
-        <q-item-section side>Side</q-item-section>
+        <q-item-section side>
+          <q-btn icon="close" round dense color="red" flat size="small" />
+        </q-item-section>
       </q-item>
 
       <q-item clickable v-ripple active-class="text-orange">
         <q-item-section avatar>
-          <q-icon name="signal_wifi_off" />
+          <q-checkbox :modelValue="true" />
         </q-item-section>
         <q-item-section>Active, Active class</q-item-section>
-        <q-item-section side>Side</q-item-section>
+        <q-item-section side>
+          <q-btn icon="close" round dense color="red" flat size="small" />
+        </q-item-section>
       </q-item>
     </q-list>
   </div>
