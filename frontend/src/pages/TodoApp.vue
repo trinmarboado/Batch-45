@@ -10,9 +10,11 @@
 
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
-    <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done" />
+    <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
+      @keyup.enter="add"
+    />
     <q-list bordered separator class="q-ma-md">
-      <q-item clickable v-ripple v-for="(todo, i) in todos" :key="todo.id + 'item'" >
+      <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
           <q-checkbox v-model="todo.done" />
         </q-item-section>
@@ -27,29 +29,43 @@
 
 <script setup>
 
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 // create an array of todos
 
 const task = ref('')
 
-const todos = ([
-  {
-    id: 1,
-    title: 'Learn React',
-    done: true
-  },
-  {
-    id: 2,
-    title: 'Learn Vue',
-    done: true
-  },
-  {
-    id: 3,
-    title: 'Learn Vue 2',
-    done: true
-  }
-])
+const state = reactive({
+  todos: [
+    {
+      id: 1,
+      title: 'Learn React',
+      done: true
+    },
+    {
+      id: 2,
+      title: 'Learn Vue',
+      done: true
+    },
+    {
+      id: 3,
+      title: 'Learn Vue 2',
+      done: true
+    }
+  ]
+})
+
+function add () {
+  state.todos.unshift({
+    id: Date.now(),
+    title: task.value,
+    done: false
+  })
+
+  task.value = ''
+
+  console.log(state.todos)
+}
 
 </script>
 
