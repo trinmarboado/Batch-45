@@ -83,15 +83,22 @@ const saveState = () => window.localStorage.setItem('todos', JSON.stringify([...
 // }
 
 const removeTodo = (id) => {
-  for (let index = 0; index < state.todos.length; index++) {
-    const todo = state.todos[index]
+  // for (let index = 0; index < state.todos.length; index++) {
+  //   const todo = state.todos[index]
 
-    if (todo.id === id) {
-      state.todos.splice(index, 1)
-      saveState()
-      return
-    }
-  }
+  //   if (todo.id === id) {
+  //     state.todos.splice(index, 1)
+  //     saveState()
+  //     return
+  //   }
+  // }
+
+  const index = state.todos.findIndex(todo => todo.id === id)
+  state.todos.splice(index, 1)
+
+  // state.todos.find(function (todo) {
+  //   return todo.id === id
+  // })
 }
 
 </script>
@@ -115,4 +122,5 @@ const removeTodo = (id) => {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
 </style>
