@@ -24,7 +24,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['updateAge'])
+const emit = defineEmits(['updateAge', 'update:model-value'])
 
 // create a human object
 const state = reactive({
