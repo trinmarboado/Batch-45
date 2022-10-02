@@ -41,7 +41,7 @@ const currentYear = new Date().getFullYear()
 
 watch(() => state.age, (newVal, oldVal) => {
   console.log('newAge', newVal, oldVal)
-  // emit('updateAge', newVal)
+  emit('updateAge', newVal)
 })
 
 const birthYear = computed(() => {
