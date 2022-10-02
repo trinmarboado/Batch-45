@@ -39,6 +39,9 @@ const decreaseAge = () => state.age--
 
 const currentYear = new Date().getFullYear()
 
-const birthYear = computed(() => currentYear - state.age)
+const birthYear = computed(() => {
+  emit('updateAge', state.age)
+  return currentYear - state.age
+})
 
 </script>
