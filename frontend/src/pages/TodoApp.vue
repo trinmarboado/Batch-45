@@ -10,8 +10,7 @@
 
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
-    {{ human }}
-    <me-human v-model="human.name" :human="human" @updateAge="(val) => human.age = val" />
+    <pie-chart :donut="true" :data="[['Active', remaining], ['Completed', state.todos.length - remaining]]"></pie-chart>
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
       @keyup.enter="add"
       ref="inputRef"
@@ -53,6 +52,8 @@
         </q-item-section>
       </q-item>
     </q-list>
+    {{ human }}
+    <me-human v-model="human.name" :human="human" @updateAge="(val) => human.age = val" />
   </div>
 </template>
 
