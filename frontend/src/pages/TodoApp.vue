@@ -12,6 +12,9 @@
     </q-toolbar>
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
       @keyup.enter="add"
+      ref="inputRef"
+      @keyup.esc="inputRef.resetValidation()"
+      :rules="[ val => val.length >= 3 || 'requires at least 3 characters' ]"
     />
     <q-list bordered separator class="q-ma-md">
       <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
@@ -22,7 +25,9 @@
           :class="{
             strikethrough: todo.done
           }"
-        >{{ i }} {{ todo.title }}</q-item-section>
+        >
+          {{ i }} {{ todo.title }}
+        </q-item-section>
         <q-item-section side>
           <q-btn icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
         </q-item-section>
@@ -38,6 +43,8 @@ import { reactive, ref } from 'vue'
 // create an array of todoss
 
 const task = ref('')
+
+const inputRef = ref(null)
 
 const state = reactive({
   todos: [
