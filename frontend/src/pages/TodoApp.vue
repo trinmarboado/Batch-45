@@ -10,6 +10,7 @@
 
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
+    <me-human />
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
       @keyup.enter="add"
       ref="inputRef"
@@ -25,7 +26,6 @@
           :class="{
             strikethrough: todo.done
           }"
-          @click.stop
         >
           <!-- <q-input v-if="editing === i" ref="edits" v-model="tempTask"
             @keyup.enter="editing = -1, todo.title = tempTask"
@@ -57,6 +57,8 @@
 <script setup>
 
 import { reactive, ref } from 'vue'
+
+import meHuman from 'components/meHuman.vue'
 
 // async function focusInput (refs) {
 //   await nextTick()
@@ -141,7 +143,7 @@ const removeTodo = (id) => {
 
 </script>
 
-<style>
+<style scoped>
   h3 {
     background-color: purple;
     color: white;
