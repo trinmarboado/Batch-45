@@ -25,8 +25,9 @@
           :class="{
             strikethrough: todo.done
           }"
+          @click.stop
         >
-          <q-input v-if="editing === i" ref="edits" v-model="tempTask"
+          <!-- <q-input v-if="editing === i" ref="edits" v-model="tempTask"
             @keyup.enter="editing = -1, todo.title = tempTask"
             @keyup.esc="editing = -1"
             @blur="editing = -1" />
@@ -38,7 +39,12 @@
             "
           >
             {{ i }} {{ todo.title }}
-          </span>
+          </span> -->
+
+          <span @click.stop @dblclick="$refs.edit[i].show()">{{ i }} {{ todo.title }}</span>
+          <q-popup-edit ref="edit" v-model="todo.title" auto-save v-slot="scope">
+            <q-input v-model="scope.value" dense autofocus counter @keyup.enter="scope.set" />
+          </q-popup-edit>
         </q-item-section>
         <q-item-section side>
           <q-btn icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
@@ -50,22 +56,22 @@
 
 <script setup>
 
-import { nextTick, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 
-async function focusInput (refs) {
-  await nextTick()
-  refs.edits[0].select()
-  // setTimeout(() => {
-  //   // asd
-  // }, 500)
-}
+// async function focusInput (refs) {
+//   await nextTick()
+//   refs.edits[0].select()
+//   // setTimeout(() => {
+//   //   // asd
+//   // }, 500)
+// }
 
 const task = ref('')
-const tempTask = ref('')
+// const tempTask = ref('')
 
 const inputRef = ref(null)
 
-const editing = ref(-1)
+// const editing = ref(-1)
 
 const state = reactive({
   todos: [
