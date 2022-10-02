@@ -9,6 +9,7 @@
       <q-toolbar-title>Batch 45 {{ task }}</q-toolbar-title>
 
       <q-btn flat round dense icon="picture_as_pdf" @click="pdf('open')" />
+      <q-btn flat round dense icon="print" @click="print" />
     </q-toolbar>
     <pie-chart :donut="true" :data="[['Active', remaining], ['Completed', state.todos.length - remaining]]"></pie-chart>
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
@@ -18,7 +19,7 @@
       :rules="[ val => val.length >= 3 || 'requires at least 3 characters' ]"
     />
     {{ remaining }} item/s left
-    <q-list bordered separator class="q-ma-md">
+    <q-list bordered separator class="q-ma-md listPrint">
       <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
           <q-checkbox v-model="todo.done" @update:model-value="saveState" />
@@ -64,6 +65,12 @@ import { computed, inject, reactive, ref } from 'vue'
 import meHuman from 'components/meHuman.vue'
 
 const pdfMake = inject('pdfMake')
+const printElement = inject('printElement')
+
+const print = () => {
+  const el = document.querySelector('.listPrint')
+  printElement(el)
+}
 
 function pdf (method) {
   const dd = {

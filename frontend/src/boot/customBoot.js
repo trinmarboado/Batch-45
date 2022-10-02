@@ -6,6 +6,8 @@ import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
+import printElement from 'ink-html'
+
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
 export default boot(async ({ app, router }) => {
@@ -14,4 +16,6 @@ export default boot(async ({ app, router }) => {
   app.use(VueChartkick)
 
   app.provide('pdfMake', pdfMake)
+
+  app.provide('printElement', printElement)
 })
