@@ -3,6 +3,8 @@
     <h3>{{ state.name }}</h3>
     age: <q-btn dense round icon="remove" @click="decreaseAge" /> {{state.age}} <q-btn dense round icon="add" @click="addAge" />
     birthYear: {{ birthYear }}
+
+    <q-btn dense round icon="save" @click="emit('updateAge', state.age)" />
   </div>
 </template>
 
@@ -18,6 +20,8 @@ const props = defineProps({
     })
   }
 })
+
+const emit = defineEmits(['updateAge'])
 
 // create a human object
 const state = reactive({
