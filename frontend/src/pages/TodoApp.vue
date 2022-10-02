@@ -26,11 +26,15 @@
             strikethrough: todo.done
           }"
         >
-          <q-input v-if="editing === i" ref="edits" v-model="tempTask" @keyup.esc="editing = -1" @blur="editing = -1" />
+          <q-input v-if="editing === i" ref="edits" v-model="tempTask"
+            @keyup.enter="editing = -1, todo.title = tempTask"
+            @keyup.esc="editing = -1"
+            @blur="editing = -1" />
           <span v-else
             @dblclick="
               editing = i,
-              tempTask = todo.title
+              tempTask = todo.title,
+              focusInput($refs)
             "
           >
             {{ i }} {{ todo.title }}
@@ -46,9 +50,15 @@
 
 <script setup>
 
-import { reactive, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 
-// create an array of todoss
+async function focusInput (refs) {
+  await nextTick()
+  refs.edits[0].select()
+  // setTimeout(() => {
+  //   // asd
+  // }, 500)
+}
 
 const task = ref('')
 const tempTask = ref('')
