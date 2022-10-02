@@ -10,13 +10,15 @@
 
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
-    <me-human />
+    {{ human }}
+    <me-human :human="human" />
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
       @keyup.enter="add"
       ref="inputRef"
       @keyup.esc="inputRef.resetValidation()"
       :rules="[ val => val.length >= 3 || 'requires at least 3 characters' ]"
     />
+    {{ remaining }} item/s left
     <q-list bordered separator class="q-ma-md">
       <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
@@ -56,7 +58,7 @@
 
 <script setup>
 
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 import meHuman from 'components/meHuman.vue'
 
@@ -67,6 +69,8 @@ import meHuman from 'components/meHuman.vue'
 //   //   // asd
 //   // }, 500)
 // }
+
+const human = ref({ name: 'Jeh', age: 39 })
 
 const task = ref('')
 // const tempTask = ref('')
@@ -93,6 +97,10 @@ const state = reactive({
       done: true
     }
   ]
+})
+
+const remaining = computed(() => {
+  return state.todos.filter(todos => !todos.done).length
 })
 
 // state.todos = JSON.parse(window.localStorage.getItem('todos')) || [...state.todos]

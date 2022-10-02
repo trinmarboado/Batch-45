@@ -9,14 +9,24 @@
 <script setup>
 import { computed, reactive } from 'vue'
 
+const props = defineProps({
+  human: {
+    type: Object,
+    default: () => ({
+      name: 'pogi',
+      age: 0
+    })
+  }
+})
+
 // create a human object
 const state = reactive({
   hairLength: 'long',
   hairColor: 'black',
   skin: 'brown',
   withBangs: true,
-  name: 'Pogi',
-  age: 26
+  name: props.human.name,
+  age: props.human.age
 })
 
 const addAge = () => state.age++
