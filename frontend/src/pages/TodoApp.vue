@@ -8,7 +8,7 @@
 
       <q-toolbar-title>Batch 45 {{ task }}</q-toolbar-title>
 
-      <q-btn flat round dense icon="whatshot" />
+      <q-btn flat round dense icon="picture_as_pdf" @click="pdf('open')" />
     </q-toolbar>
     <pie-chart :donut="true" :data="[['Active', remaining], ['Completed', state.todos.length - remaining]]"></pie-chart>
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
@@ -59,9 +59,28 @@
 
 <script setup>
 
-import { computed, reactive, ref } from 'vue'
+import { computed, inject, reactive, ref } from 'vue'
 
 import meHuman from 'components/meHuman.vue'
+
+const pdfMake = inject('pdfMake')
+
+function pdf (method) {
+  const dd = {
+    content: [
+      {
+        table: {
+          body: [
+            ['Status', 'Count'],
+            ['active', remaining.value],
+            ['completed', state.todos.length - remaining.value]
+          ]
+        }
+      }
+    ]
+  }
+  pdfMake.createPdf(dd)[method]()
+}
 
 // async function focusInput (refs) {
 //   await nextTick()
