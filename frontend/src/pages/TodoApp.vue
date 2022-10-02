@@ -26,7 +26,15 @@
             strikethrough: todo.done
           }"
         >
-          {{ i }} {{ todo.title }}
+          <q-input v-if="editing === i" ref="edits" v-model="tempTask" @keyup.esc="editing = -1" @blur="editing = -1" />
+          <span v-else
+            @dblclick="
+              editing = i,
+              tempTask = todo.title
+            "
+          >
+            {{ i }} {{ todo.title }}
+          </span>
         </q-item-section>
         <q-item-section side>
           <q-btn icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
@@ -43,8 +51,11 @@ import { reactive, ref } from 'vue'
 // create an array of todoss
 
 const task = ref('')
+const tempTask = ref('')
 
 const inputRef = ref(null)
+
+const editing = ref(-1)
 
 const state = reactive({
   todos: [
