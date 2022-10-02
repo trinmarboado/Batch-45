@@ -1,6 +1,6 @@
 <template>
   <div class="hair">
-    <h3>{{ state.name }}</h3>
+    <h3><q-input v-model="state.name" @update:model-value="emit('update:model-value', state.name)" /></h3>
     age: <q-btn dense round icon="remove" @click="decreaseAge" /> {{state.age}} <q-btn dense round icon="add" @click="addAge" />
     birthYear: {{ birthYear }}
 
@@ -15,9 +15,12 @@ const props = defineProps({
   human: {
     type: Object,
     default: () => ({
-      name: 'pogi',
       age: 0
     })
+  },
+  modelValue: {
+    type: String,
+    default: 'Pogiiii'
   }
 })
 
@@ -29,7 +32,7 @@ const state = reactive({
   hairColor: 'black',
   skin: 'brown',
   withBangs: true,
-  name: props.human.name,
+  name: props.modelValue,
   age: props.human.age
 })
 

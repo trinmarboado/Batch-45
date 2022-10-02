@@ -11,7 +11,7 @@
       <q-btn flat round dense icon="whatshot" />
     </q-toolbar>
     {{ human }}
-    <me-human :human="human" @updateAge="(val) => human.age = val" />
+    <me-human :modelValue="human.name" :human="human" @updateAge="(val) => human.age = val" @update:model-value="(val) => human.name = val" />
     <q-input class="q-ma-md" rounded outlined  v-model="task" label="What needs to be done"
       @keyup.enter="add"
       ref="inputRef"
