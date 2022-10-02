@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 
 const props = defineProps({
   human: {
@@ -39,8 +39,12 @@ const decreaseAge = () => state.age--
 
 const currentYear = new Date().getFullYear()
 
+watch(() => state.age, (newVal, oldVal) => {
+  console.log('newAge', newVal, oldVal)
+  // emit('updateAge', newVal)
+})
+
 const birthYear = computed(() => {
-  emit('updateAge', state.age)
   return currentYear - state.age
 })
 
