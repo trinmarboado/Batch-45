@@ -22,7 +22,7 @@
     <q-list bordered separator class="q-ma-md listPrint">
       <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
-          <q-checkbox v-model="todo.done" @update:model-value="saveState" />
+          <q-checkbox :modelValue="todo.done" @click="toggleStatus(todo)" @update:model-value="saveState" />
         </q-item-section>
         <q-item-section
           :class="{
@@ -70,6 +70,12 @@ todosService.on('dataChange', (todos) => {
   console.log(todos)
   state.todos = [...todos.map(t => ({ ...t, id: t._id }))]
 })
+
+function toggleStatus (todo) {
+  todosService.patch(todo.id, {
+    done: !todo.done
+  })
+}
 
 todosService.init()
 
