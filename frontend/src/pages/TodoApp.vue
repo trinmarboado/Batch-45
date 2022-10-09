@@ -20,7 +20,7 @@
     />
     {{ remaining }} item/s left
     <q-list bordered separator class="q-ma-md listPrint">
-      <q-item clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
+      <q-item @mouseover="hovering = todo.id" @mouseleave="hovering = -111" clickable v-ripple v-for="(todo, i) in state.todos" :key="todo.id + 'item'" >
         <q-item-section avatar>
           <q-checkbox :modelValue="todo.done" @click="toggleStatus(todo)" @update:model-value="saveState" />
         </q-item-section>
@@ -49,7 +49,7 @@
           </q-popup-edit>
         </q-item-section>
         <q-item-section side>
-          <q-btn icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
+          <q-btn v-show="hovering === todo.id" icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -65,6 +65,8 @@ import { computed, inject, reactive, ref } from 'vue'
 import meHuman from 'components/meHuman.vue'
 
 const todosService = inject('todosService')
+
+const hovering = ref(-123123)
 
 todosService.on('dataChange', (todos) => {
   console.log(todos)

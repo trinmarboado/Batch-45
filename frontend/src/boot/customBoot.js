@@ -3,8 +3,7 @@ import VueChartkick from 'vue-chartkick'
 import 'chartkick/chart.js'
 
 import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 
 import printElement from 'ink-html'
 
@@ -16,6 +15,10 @@ export default boot(async ({ app, router }) => {
   // something to do
 
   app.use(VueChartkick)
+
+  // const pdfFonts = await import('pdfmake/build/vfs_fonts.js')
+  console.log('pdfFonts', pdfFonts)
+  pdfMake.vfs = pdfFonts.pdfMake.vfs
 
   app.provide('pdfMake', pdfMake)
 
