@@ -64,6 +64,15 @@ import { computed, inject, reactive, ref } from 'vue'
 
 import meHuman from 'components/meHuman.vue'
 
+const todosService = inject('todosService')
+
+todosService.on('dataChange', (todos) => {
+  console.log(todos)
+  state.todos = [...todos.map(t => ({ ...t, id: t._id }))]
+})
+
+todosService.init()
+
 const pdfMake = inject('pdfMake')
 const printElement = inject('printElement')
 
