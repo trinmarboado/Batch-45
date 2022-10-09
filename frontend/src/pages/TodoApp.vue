@@ -49,7 +49,9 @@
           </q-popup-edit>
         </q-item-section>
         <q-item-section side>
-          <q-btn v-show="hovering === todo.id" icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
+          <q-btn :style="{
+            display: hovering !== todo.id ? 'none': ''
+          }" icon="close" @click="removeTodo(todo.id)" round dense color="red" flat size="small" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -209,6 +211,11 @@ const removeTodo = (id) => {
 </script>
 
 <style scoped>
+
+  .hide {
+    display: none;
+  }
+
   h3 {
     background-color: purple;
     color: white;
