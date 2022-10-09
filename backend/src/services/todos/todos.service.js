@@ -21,6 +21,10 @@ module.exports = function (app) {
     app.channel('anonymous')
   ])
 
+  service.publish(() => [
+    app.channel('anonymous')
+  ])
+
   // service.publish(() => {
   //   return [
   //     app.channel('anonymous')

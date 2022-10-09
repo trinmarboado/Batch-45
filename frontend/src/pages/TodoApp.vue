@@ -151,9 +151,14 @@ console.log(JSON.parse(window.localStorage.getItem('todos')))
 
 state.todos = JSON.parse(window.localStorage.getItem('todos') || '[]')
 
-function add () {
-  state.todos.unshift({
-    id: Date.now(),
+async function add () {
+  // state.todos.unshift({
+  //   id: Date.now(),
+  //   title: task.value,
+  //   done: false
+  // })
+
+  await todosService.create({
     title: task.value,
     done: false
   })
