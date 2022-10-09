@@ -43,8 +43,8 @@
             {{ i }} {{ todo.title }}
           </span> -->
 
-          <span @click.stop @dblclick="$refs.edit[i].show()">{{ i }} {{ todo.title }}</span>
-          <q-popup-edit ref="edit" v-model="todo.title" auto-save v-slot="scope">
+          <span @click.stop @dblclick="$refs[todo.id][0].show()">{{ i }} {{ todo.title }}</span>
+          <q-popup-edit @update:modelValue="(val) => updateTitle(val, todo)" :ref="todo.id" :modelValue="todo.title" auto-save v-slot="scope">
             <q-input v-model="scope.value" dense autofocus counter @keyup.enter="scope.set" />
           </q-popup-edit>
         </q-item-section>
@@ -74,6 +74,12 @@ todosService.on('dataChange', (todos) => {
 function toggleStatus (todo) {
   todosService.patch(todo.id, {
     done: !todo.done
+  })
+}
+
+const updateTitle = (title, todo) => {
+  todosService.patch(todo.id, {
+    title
   })
 }
 
@@ -188,8 +194,10 @@ const removeTodo = (id) => {
   //   }
   // }
 
-  const index = state.todos.findIndex(todo => todo.id === id)
-  state.todos.splice(index, 1)
+  // const index = state.todos.findIndex(todo => todo.id === id)
+  // state.todos.splice(index, 1)
+
+  todosService.remove(id)
 
   // state.todos.find(function (todo) {
   //   return todo.id === id
