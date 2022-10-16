@@ -8,6 +8,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 import printElement from 'ink-html'
 
 import wings from 'wings4'
+import { ref } from 'vue'
 
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
@@ -25,7 +26,9 @@ export default boot(async ({ app, router }) => {
   const wingsApp = wings('http://localhost:3030')
   app.provide('wingsApp', wingsApp)
 
-  app.provide('todosService', wingsApp.wingsService('todos'))
+  app.provide('todosService', wingsApp.wingsService('tasks'))
 
   app.provide('printElement', printElement)
+
+  app.provide('user', ref(null))
 })

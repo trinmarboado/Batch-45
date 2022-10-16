@@ -1,5 +1,21 @@
 <template>
   <div>
+    <q-dialog v-model="showlogin">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Login</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input v-model="username" label="username"/>
+          <q-input v-model="password" label="password" />
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Login" color="primary" @click="login" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <q-toolbar class="bg-primary text-white">
       <q-btn flat round dense icon="menu" class="q-mr-sm" />
       <q-avatar>
@@ -7,7 +23,8 @@
       </q-avatar>
 
       <q-toolbar-title>Batch 45 {{ task }}</q-toolbar-title>
-
+      <q-btn v-if="user" dense icon="logout" label="logout" />
+      <q-btn v-else dense icon="login" label="login" @click="showlogin = true" />
       <q-btn flat round dense icon="picture_as_pdf" @click="pdf('open')" />
       <q-btn flat round dense icon="print" @click="print" />
     </q-toolbar>
@@ -66,7 +83,18 @@ import { computed, inject, reactive, ref } from 'vue'
 
 import meHuman from 'components/meHuman.vue'
 
+const showlogin = ref(false)
+
+const username = ref('')
+const password = ref('')
+
+function login () {
+
+}
+
 const todosService = inject('todosService')
+
+const user = inject('user')
 
 const hovering = ref(-123123)
 
@@ -133,21 +161,21 @@ const inputRef = ref(null)
 
 const state = reactive({
   todos: [
-    {
-      id: 1,
-      title: 'Learn React',
-      done: true
-    },
-    {
-      id: 2,
-      title: 'Learn Vue',
-      done: true
-    },
-    {
-      id: 3,
-      title: 'Learn Vue 2',
-      done: true
-    }
+    // {
+    //   id: 1,
+    //   title: 'Learn React',
+    //   done: true
+    // },
+    // {
+    //   id: 2,
+    //   title: 'Learn Vue',
+    //   done: true
+    // },
+    // {
+    //   id: 3,
+    //   title: 'Learn Vue 2',
+    //   done: true
+    // }
   ]
 })
 
@@ -159,7 +187,7 @@ const remaining = computed(() => {
 
 console.log(JSON.parse(window.localStorage.getItem('todos')))
 
-state.todos = JSON.parse(window.localStorage.getItem('todos') || '[]')
+// state.todos = JSON.parse(window.localStorage.getItem('todos') || '[]')
 
 async function add () {
   // state.todos.unshift({
