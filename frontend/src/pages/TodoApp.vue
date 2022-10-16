@@ -100,6 +100,8 @@ function login () {
 
 const wingsApp = inject('wingsApp')
 
+wingsApp.authenticate()
+
 wingsApp.on('login', result => {
   console.log('logged in', result)
   user.value = result.user
