@@ -8,7 +8,7 @@
 
         <q-card-section class="q-pt-none">
           <q-input v-model="username" label="username"/>
-          <q-input v-model="password" label="password" />
+          <q-input v-model="password" label="password" type="password" />
         </q-card-section>
 
         <q-card-actions align="right">
@@ -89,8 +89,21 @@ const username = ref('')
 const password = ref('')
 
 function login () {
-
+  console.log(username.value)
+  console.log(password.value)
+  wingsApp.authenticate({
+    email: username.value,
+    password: password.value,
+    strategy: 'local'
+  })
 }
+
+const wingsApp = inject('wingsApp')
+
+wingsApp.on('login', result => {
+  console.log('logged in', result)
+  user.value = result.user
+})
 
 const todosService = inject('todosService')
 
