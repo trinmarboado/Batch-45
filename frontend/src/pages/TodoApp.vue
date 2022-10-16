@@ -17,7 +17,7 @@
       </q-card>
     </q-dialog>
     <q-toolbar class="bg-primary text-white">
-      <q-btn flat round dense icon="menu" class="q-mr-sm" />
+      <q-btn flat round dense icon="menu" class="q-mr-sm" @click="$router.push('/another/123')" />
       <q-avatar>
         <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
       </q-avatar>

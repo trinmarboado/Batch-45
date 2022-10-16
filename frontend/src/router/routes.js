@@ -8,6 +8,14 @@ const routes = [
     //   { path: '', component: () => import('pages/IndexPage.vue') }
     // ]
   },
+  {
+    path: '/another',
+    component: () => import('pages/AnotherPage.vue'),
+    children: [
+      { path: ':id', component: () => import('pages/IndexPage.vue') },
+      { path: ':id/:user', component: () => import('pages/IndexPage.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
