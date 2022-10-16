@@ -23,7 +23,7 @@
       </q-avatar>
 
       <q-toolbar-title>Batch 45 {{ task }}</q-toolbar-title>
-      <q-btn v-if="user" dense icon="logout" label="logout" />
+      <q-btn v-if="user" dense icon="logout" label="logout" @click="wingsApp.logout()"/>
       <q-btn v-else dense icon="login" label="login" @click="showlogin = true" />
       <q-btn flat round dense icon="picture_as_pdf" @click="pdf('open')" />
       <q-btn flat round dense icon="print" @click="print" />
@@ -105,6 +105,10 @@ wingsApp.authenticate()
 wingsApp.on('login', result => {
   console.log('logged in', result)
   user.value = result.user
+})
+
+wingsApp.on('logout', result => {
+  user.value = null
 })
 
 const todosService = inject('todosService')
