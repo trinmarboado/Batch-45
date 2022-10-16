@@ -105,10 +105,13 @@ wingsApp.authenticate()
 wingsApp.on('login', result => {
   console.log('logged in', result)
   user.value = result.user
+  todosService.reset()
+  todosService.init()
 })
 
 wingsApp.on('logout', result => {
   user.value = null
+  state.todos = []
 })
 
 const todosService = inject('todosService')
